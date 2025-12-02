@@ -361,14 +361,13 @@ const SanctumGate = ({ onEnter }: { onEnter: () => void }) => {
 
 // --- COMPONENT: COMMUNION TABLE (CONNECTED) ---
 const CommunionTable = () => {
-  // Use INITIAL_REFLECTIONS to avoid unused variable errors and provide initial state
   const [reflections, setReflections] = useState<Reflection[]>(INITIAL_REFLECTIONS);
   const [newReflection, setNewReflection] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   // 1. FETCH DATA ON ENTER
   useEffect(() => {
-    fetch("http://localhost:3000/api/reflections")
+    fetch("/api/reflections") // CHANGED TO RELATIVE PATH
       .then(res => res.json())
       .then(data => {
         // Convert SQL timestamp string to Date object
@@ -392,7 +391,7 @@ const CommunionTable = () => {
     if (!newReflection.trim()) return;
     
     try {
-      const res = await fetch("http://localhost:3000/api/reflections", {
+      const res = await fetch("/api/reflections", { // CHANGED TO RELATIVE PATH
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: newReflection })
@@ -426,7 +425,7 @@ const CommunionTable = () => {
     setReflections(reflections.map(r => r.id === id ? { ...r, candles: r.candles + 1 } : r));
 
     try {
-      await fetch("http://localhost:3000/api/light", {
+      await fetch("/api/light", { // CHANGED TO RELATIVE PATH
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id })
@@ -484,7 +483,7 @@ const CommunionTable = () => {
 // --- MAIN APP ---
 const App = () => {
   const [hasEntered, setHasEntered] = useState(false);
-  const [activeTab, setActiveTab] = useState("genesis"); // Default to scripture/genesis
+  const [activeTab, setActiveTab] = useState("genesis");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   if (!hasEntered) {
