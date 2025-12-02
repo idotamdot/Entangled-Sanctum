@@ -22,10 +22,10 @@
     
     /* INTEROP FIXES */
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
     
-    /* Removed the restrictive 'types' array so it finds everything automatically */
-    // "types": ["node", "vite/client"] 
+    /* Types - Explicitly include Node.js for the API and Vite for the Client */
+    "types": ["node", "vite/client"]
   },
   "include": ["src", "api"]
 }
