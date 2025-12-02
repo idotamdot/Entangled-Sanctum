@@ -419,9 +419,7 @@ const DashboardView = () => {
       .then(res => res.json())
       .then(data => {
         const totalReflections = data.length;
-        // Count candles (if array is empty, default to 0)
         const totalCandles = data.reduce((acc: number, curr: any) => acc + (curr.candles || 0), 0);
-        // For parables, we count the total books in the library for now
         const totalParables = LIBRARY.length; 
         
         setStats({
@@ -433,7 +431,6 @@ const DashboardView = () => {
       })
       .catch(err => {
         console.error("Observer Error:", err);
-        // Fallback stats if API is down
         setStats({ reflections: 0, candles: 0, parables: LIBRARY.length });
         setLoading(false);
       });
