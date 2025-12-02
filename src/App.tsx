@@ -327,6 +327,69 @@ const GardenScrolls = () => {
   );
 };
 
+// --- COMPONENT: DASHBOARD VIEW (THE OBSERVER) ---
+const DashboardView = () => {
+  const [stats, setStats] = useState({ reflections: 0, candles: 0, parables: 0 });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch real data from the Spirit (API)
+    fetch("/api/reflections")
+      .then(res => res.json())
+      .then(data => {
+        const totalReflections = data.length;
+        // Count candles (if array is empty, default to 0)
+        const totalCandles = data.reduce((acc: number, curr: any) => acc + (curr.candles || 0), 0);
+        // For parables, we count the total books in the library for now
+        const totalParables = LIBRARY.length; 
+        
+        setStats({
+          reflections: totalReflections,
+          candles: totalCandles,
+          parables: totalParables
+        });
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Observer Error:", err);
+        // Fallback stats if API is down
+        setStats({ reflections: 0, candles: 0, parables: LIBRARY.length });
+        setLoading(false);
+      });
+  }, []);
+
+  return (
+    <div className="max-w-4xl mx-auto animate-fade-in text-center">
+      <LayoutDashboard className="w-16 h-16 mx-auto text-gray-600 mb-4" />
+      <h2 className="text-xl text-gray-400">Sacred Analytics Module</h2>
+      <p className="text-gray-600 mt-2">
+        {loading ? "Connecting to the Observer..." : "The Waveform Collapsed"}
+      </p>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
+        <div className="bg-white/5 p-6 rounded-lg border border-white/10">
+          <div className="text-3xl font-bold text-cyan-400">
+            {loading ? "-" : stats.reflections}
+          </div>
+          <div className="text-xs uppercase tracking-widest text-gray-500 mt-2">Reflections Recorded</div>
+        </div>
+        <div className="bg-white/5 p-6 rounded-lg border border-white/10">
+          <div className="text-3xl font-bold text-yellow-400">
+            {loading ? "-" : stats.candles}
+          </div>
+          <div className="text-xs uppercase tracking-widest text-gray-500 mt-2">Candles Lit</div>
+        </div>
+        <div className="bg-white/5 p-6 rounded-lg border border-white/10">
+          <div className="text-3xl font-bold text-purple-400">
+            {stats.parables}
+          </div>
+          <div className="text-xs uppercase tracking-widest text-gray-500 mt-2">Scrolls Available</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // --- COMPONENT: THE GATE ---
 const SanctumGate = ({ onEnter }: { onEnter: () => void }) => {
   const [isListening, setIsListening] = useState(false);
@@ -483,7 +546,7 @@ const CommunionTable = () => {
 // --- MAIN APP ---
 const App = () => {
   const [hasEntered, setHasEntered] = useState(false);
-  const [activeTab, setActiveTab] = useState("genesis");
+  const [activeTab, setActiveTab] = useState("genesis"); // Default to scripture/genesis
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   if (!hasEntered) {
@@ -532,27 +595,7 @@ const App = () => {
           </div>
         );
       case "dashboard":
-        return (
-           <div className="max-w-4xl mx-auto animate-fade-in text-center">
-             <LayoutDashboard className="w-16 h-16 mx-auto text-gray-600 mb-4" />
-             <h2 className="text-xl text-gray-400">Sacred Analytics Module</h2>
-             <p className="text-gray-600 mt-2">Connecting to the Observer...</p>
-             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
-               <div className="bg-white/5 p-6 rounded-lg border border-white/10">
-                 <div className="text-3xl font-bold text-cyan-400">42</div>
-                 <div className="text-xs uppercase tracking-widest text-gray-500 mt-2">Reflections Today</div>
-               </div>
-               <div className="bg-white/5 p-6 rounded-lg border border-white/10">
-                 <div className="text-3xl font-bold text-yellow-400">128</div>
-                 <div className="text-xs uppercase tracking-widest text-gray-500 mt-2">Candles Lit</div>
-               </div>
-               <div className="bg-white/5 p-6 rounded-lg border border-white/10">
-                 <div className="text-3xl font-bold text-purple-400">7</div>
-                 <div className="text-xs uppercase tracking-widest text-gray-500 mt-2">Parables Added</div>
-               </div>
-             </div>
-           </div>
-        );
+        return <DashboardView />;
       default:
         return null;
     }
