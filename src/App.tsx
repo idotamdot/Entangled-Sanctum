@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Mic, Wind, Flame, Feather, LayoutDashboard, Menu, X, ScrollText, Zap, BookOpen, ChevronLeft, Star } from 'lucide-react';
+import { Mic, Wind, Flame, Feather, LayoutDashboard, Menu, X, ScrollText, Zap, BookOpen, ChevronLeft, Star, Leaf, Heart, Crown, Clock, Scale } from 'lucide-react';
 
 // --- TYPES ---
 interface Reflection {
@@ -31,6 +31,51 @@ const NT_BOOKS = [
   "Galatians", "Ephesians", "Philippians", "Colossians", "1 Thessalonians", "2 Thessalonians", 
   "1 Timothy", "2 Timothy", "Titus", "Philemon", "Hebrews", "James", "1 Peter", "2 Peter", 
   "1 John", "2 John", "3 John", "Jude", "Revelation"
+];
+
+// --- DATA: PARABLES ---
+const PARABLES_DATA = [
+  {
+    category: "Foundational Teachings",
+    icon: <Leaf className="w-5 h-5 text-green-400" />,
+    items: [
+      "Parable of the Sower", "Parable of the Weeds", "Parable of the Mustard Seed", 
+      "Parable of the Leaven", "Parable of the Hidden Treasure", "Parable of the Pearl of Great Price", 
+      "Parable of the Net", "Parable of the Lamp Under a Basket"
+    ]
+  },
+  {
+    category: "Redemption & Forgiveness",
+    icon: <Heart className="w-5 h-5 text-red-400" />,
+    items: [
+      "Parable of the Lost Sheep", "Parable of the Lost Coin", "Parable of the Prodigal Son", 
+      "Parable of the Unforgiving Servant", "Parable of the Two Debtors"
+    ]
+  },
+  {
+    category: "Kingdom Invitations",
+    icon: <Crown className="w-5 h-5 text-gold-400" />,
+    items: [
+      "Parable of the Good Samaritan", "Parable of the Workers in the Vineyard", 
+      "Parable of the Wedding Banquet", "Parable of the Great Banquet"
+    ]
+  },
+  {
+    category: "Watchfulness",
+    icon: <Clock className="w-5 h-5 text-blue-400" />,
+    items: [
+      "Parable of the Ten Virgins", "Parable of the Talents", "Parable of the Ten Minas", 
+      "Parable of the Wise and Faithful Servant"
+    ]
+  },
+  {
+    category: "Spiritual Growth & Judgment",
+    icon: <Scale className="w-5 h-5 text-purple-400" />,
+    items: [
+      "Parable of the Growing Seed", "Parable of the Barren Fig Tree", 
+      "Parable of the Rich Man and Lazarus", "Parable of the Sheep and the Goats"
+    ]
+  }
 ];
 
 // --- HELPER: GENERATE LIBRARY ---
@@ -249,6 +294,42 @@ const INITIAL_REFLECTIONS: Reflection[] = [
     candles: 8 
   },
 ];
+
+// --- COMPONENT: PARABLES VIEW ---
+const ParablesView = () => {
+  return (
+    <div className="max-w-6xl mx-auto animate-fade-in">
+      {/* Featured Parable */}
+      <div className="mb-20">
+        <h1 className="text-4xl font-serif text-center mb-8 text-gold-400">The Parable of the Recognized One</h1>
+        <div className="bg-white/5 p-8 rounded-xl border border-white/5 leading-relaxed text-lg shadow-2xl max-w-3xl mx-auto">
+          {RECOGNIZED_ONE_CONTENT}
+        </div>
+      </div>
+
+      {/* Parable Categories */}
+      <h2 className="text-2xl font-mono text-center mb-12 text-gray-500 uppercase tracking-widest">The Parables of Jesus</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {PARABLES_DATA.map((category, idx) => (
+          <div key={idx} className="bg-white/5 border border-white/10 rounded-xl p-6">
+            <div className="flex items-center gap-3 mb-6 border-b border-white/10 pb-4">
+              {category.icon}
+              <h3 className="text-lg font-serif text-gray-200">{category.category}</h3>
+            </div>
+            <ul className="space-y-3">
+              {category.items.map((item, itemIdx) => (
+                <li key={itemIdx} className="text-sm text-gray-400 hover:text-cyan-300 transition-colors cursor-pointer flex items-center gap-2 group">
+                  <span className="w-1 h-1 bg-gray-600 rounded-full group-hover:bg-cyan-400 transition-colors"></span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 // --- COMPONENT: LIBRARY VIEW ---
 const LibraryView = () => {
@@ -571,14 +652,7 @@ const App = () => {
       case "library":
         return <LibraryView />;
       case "parable":
-        return (
-          <div className="max-w-2xl mx-auto animate-fade-in">
-            <h1 className="text-3xl font-serif text-center mb-8 text-gold-400">The Parable of the Recognized One</h1>
-            <div className="bg-white/5 p-8 rounded-xl border border-white/5 leading-relaxed text-lg shadow-2xl">
-              {RECOGNIZED_ONE_CONTENT}
-            </div>
-          </div>
-        );
+        return <ParablesView />;
       case "garden":
         return (
           <div className="max-w-6xl mx-auto animate-fade-in">
