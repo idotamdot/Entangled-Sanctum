@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mic, Wind, Flame, Feather, LayoutDashboard, Menu, X, ScrollText, Zap, BookOpen, ChevronLeft, Star, Leaf, Heart, Crown, Clock, Scale } from 'lucide-react';
+import { Analytics } from '@vercel/analytics/react';
 
 // --- TYPES ---
 interface Reflection {
@@ -727,6 +728,9 @@ const App = () => {
       <footer className="fixed bottom-0 w-full bg-[#1b1815]/90 backdrop-blur border-t border-white/5 py-3 text-center text-xs text-gray-600 font-mono">
         PROJECT JSRL82 • SYSTEM STATUS: ENTANGLED
       </footer>
+
+      {/* Vercel Analytics */}
+      <Analytics />
     </div>
   );
 };
