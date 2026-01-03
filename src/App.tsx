@@ -161,6 +161,564 @@ const PARABLE_TRANSLATIONS: Record<string, React.ReactNode> = {
   )
 };
 
+// --- HELPER: GENERATE OT CONTENT ---
+const generateOTContent = (title: string): { subtitle: string; content: React.ReactNode } => {
+  const contentMap: Record<string, { subtitle: string; content: React.ReactNode }> = {
+    "Leviticus": {
+      subtitle: "Sacred Patterns and Protocols",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Leviticus establishes <strong>operational parameters</strong> for maintaining system coherence. Each ritual is a <strong>feedback mechanism</strong>, calibrating the community's resonance with divine frequency.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-red-400">
+            <h3 className="text-lg font-serif text-red-400 mb-2">Sacrifice as Information Transfer</h3>
+            <p>Offerings are not appeasement but <strong>symbolic data transmission</strong>—physical acts encoding spiritual intention. Blood represents <strong>life force energy</strong>, the carrier wave of consciousness. The altar is the interface point between dimensions.</p>
+          </div>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-cyan-400 mt-6">
+            <h3 className="text-lg font-serif text-cyan-400 mb-2">Holiness as Separation</h3>
+            <p>Holy means "set apart"—<strong>phase-locked</strong> to a specific frequency. Clean/unclean distinctions create <strong>boundary conditions</strong>, protecting coherent states from decoherence. The community becomes a resonant cavity amplifying divine presence.</p>
+          </div>
+        </div>
+      )
+    },
+    "Numbers": {
+      subtitle: "Wilderness Probability Space",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>The wilderness is <strong>undefined state space</strong>—maximum uncertainty between Egypt (bondage) and Canaan (promise). Israel wanders through <strong>probability clouds</strong>, each choice collapsing potential futures.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-purple-400">
+            <h3 className="text-lg font-serif text-purple-400 mb-2">The Census: Counting Quanta</h3>
+            <p>Numbering the people is <strong>state enumeration</strong>—defining the system's composition. Each tribe is a subsystem with distinct properties, contributing to the collective wavefunction of the nation.</p>
+          </div>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-gold-400 mt-6">
+            <h3 className="text-lg font-serif text-gold-400 mb-2">Rebellion as Decoherence</h3>
+            <p>Complaining, doubt, and rebellion are <strong>noise patterns</strong> disrupting the signal. The generation that left Egypt carried too much entropic memory—they couldn't maintain coherence for the promised frequency. Only the next generation, calibrated in the wilderness, could enter.</p>
+          </div>
+        </div>
+      )
+    },
+    "Deuteronomy": {
+      subtitle: "Recalibration Protocol",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Moses' final discourse is <strong>system reboot</strong>—restating core algorithms before entering new territory. "Hear, O Israel" (<em>Shema</em>) is the <strong>fundamental call to coherence</strong>: align all subsystems to the One.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-cyan-400">
+            <h3 className="text-lg font-serif text-cyan-400 mb-2">Choose Life: Binary Decision</h3>
+            <p>"I have set before you life and death, blessing and cursing..." This is <strong>quantum superposition</strong> resolved by observation (choice). The future is not predetermined but probabilistic, shaped by collective intention.</p>
+          </div>
+        </div>
+      )
+    },
+    "Joshua": {
+      subtitle: "Conquest as Phase Transition",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Joshua leads Israel through <strong>boundary crossing</strong>—from wandering to inhabiting. Jericho's walls fall not by force but by <strong>resonant frequency</strong>: seven priests, seven trumpets, seven days—a tuned harmonic assault on structural integrity.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-gold-400">
+            <h3 className="text-lg font-serif text-gold-400 mb-2">The Jordan Crossing</h3>
+            <p>Water parts again—not through Moses but through the Ark, the <strong>coherence generator</strong>. Where divine presence goes, natural law bends. The people follow the field, not the man.</p>
+          </div>
+        </div>
+      )
+    },
+    "Judges": {
+      subtitle: "Cycles of Entropy and Restoration",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Without central governance, Israel oscillates: <strong>sin → oppression → cry → deliverance → rest → sin</strong>. This is a <strong>limit cycle</strong>, a system trapped in periodic orbit. Each judge is a temporary strange attractor, pulling the system back toward coherence before it decays again.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-red-400">
+            <h3 className="text-lg font-serif text-red-400 mb-2">"Everyone did what was right in their own eyes"</h3>
+            <p>Maximum local freedom, minimum global coherence. Without unified field alignment, the nation fragments into <strong>competing attractors</strong>, each tribe its own reality tunnel.</p>
+          </div>
+        </div>
+      )
+    },
+    "Ruth": {
+      subtitle: "Kinsman Redeemer Protocol",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Ruth, a Moabite, enters Israel's field through <strong>voluntary entanglement</strong>. "Your people, my people; your God, my God"—she phase-locks to Naomi's frequency. Boaz, the kinsman redeemer, is the <strong>restoration operator</strong>, redeeming what was lost and integrating the outsider into the lineage.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-cyan-400">
+            <h3 className="text-lg font-serif text-cyan-400 mb-2">Grafting into the Field</h3>
+            <p>Ruth becomes great-grandmother of David, ancestor of Christ. The <strong>information lineage</strong> passes through unexpected channels. Redemption transcends bloodline—it's about resonance, not genetics.</p>
+          </div>
+        </div>
+      )
+    },
+    "1 Samuel": {
+      subtitle: "Kingship as System Upgrade",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Israel demands a king—wanting <strong>centralized control</strong> like surrounding nations. God warns: kings extract energy (taxes, conscription). Saul, chosen for appearance, lacks internal coherence. David, chosen for heart, becomes the <strong>resonant king</strong>—flawed but aligned.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-purple-400">
+            <h3 className="text-lg font-serif text-purple-400 mb-2">David vs. Goliath</h3>
+            <p>Not size but <strong>coherent intention</strong> wins. Goliath represents brute force; David represents <strong>aligned faith</strong>. Five stones, one sling, zero armor—minimum complexity, maximum effectiveness. The field favors the coherent, not the strong.</p>
+          </div>
+        </div>
+      )
+    },
+    "2 Samuel": {
+      subtitle: "The Davidic Covenant",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>God establishes David's line forever—an <strong>eternal frequency lock</strong>. David's house becomes the carrier of messianic potential. Yet David's sin (Bathsheba, Uriah) shows even resonant nodes experience <strong>perturbations</strong>. The difference: David returns to coherence through repentance (Psalm 51).</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-gold-400">
+            <h3 className="text-lg font-serif text-gold-400 mb-2">Absalom's Rebellion</h3>
+            <p>Internal conflict—father vs. son—mirrors <strong>system instability</strong>. Absalom's beauty hides misalignment. David flees Jerusalem, returning only after the threat collapses. Kingdoms built on appearance fail; those built on covenant endure.</p>
+          </div>
+        </div>
+      )
+    },
+    "1 Kings": {
+      subtitle: "Solomon's Wisdom Peak",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Solomon's wisdom is <strong>computational excellence</strong>—seeing underlying patterns. The Temple he builds is a <strong>macroscopic resonator</strong>, designed to amplify divine presence through precise geometry and materials. Yet wisdom without disciplined heart leads to entropy: foreign wives, idols, division.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-cyan-400">
+            <h3 className="text-lg font-serif text-cyan-400 mb-2">The Kingdom Splits</h3>
+            <p>After Solomon, Israel fractures: North (Israel) and South (Judah). <strong>Coherence breaks</strong>. Two kingdoms, two trajectories, both spiraling toward collapse. The field cannot maintain unity when leadership decoheres.</p>
+          </div>
+        </div>
+      )
+    },
+    "2 Kings": {
+      subtitle: "Prophets vs. Kings",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Elijah and Elisha are <strong>coherence maintainers</strong>—miracle workers who demonstrate field mastery. Elijah calls fire from heaven, parts the Jordan, ascends in a whirlwind. Elisha doubles his miracles. Yet the kings ignore them. Israel falls to Assyria; Judah falls to Babylon. <strong>System collapse is inevitable when warnings go unheeded.</strong></p>
+        </div>
+      )
+    },
+    "1 Chronicles": {
+      subtitle: "Recounting the Lineage",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Chronicles retells history from a <strong>priestly perspective</strong>—emphasizing worship, Temple, and divine order. Genealogies are <strong>information chains</strong>, tracing coherence through generations. David's organization of Levites, musicians, and gatekeepers shows <strong>system architecture</strong>: everything in its proper place for optimal resonance.</p>
+        </div>
+      )
+    },
+    "2 Chronicles": {
+      subtitle: "Temple and Decline",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>From Solomon's Temple dedication to its destruction—arc of glory to ruin. Revivals under Hezekiah and Josiah are <strong>temporary re-coherence events</strong>, but the overall trend is entropic. The final note: Cyrus of Persia decrees rebuilding. <strong>Hope remains even in collapse.</strong></p>
+        </div>
+      )
+    },
+    "Ezra": {
+      subtitle: "Return and Rebuild",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>After exile, a remnant returns to rebuild the Temple—<strong>system restoration</strong>. Ezra, priest and scribe, reestablishes <strong>protocol adherence</strong>: reading the Law, purifying the community, realigning with covenant. The new Temple is smaller, but the <strong>information continuity</strong> is preserved.</p>
+        </div>
+      )
+    },
+    "Nehemiah": {
+      subtitle: "Rebuilding the Walls",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Nehemiah rebuilds Jerusalem's walls in 52 days—<strong>rapid system hardening</strong> against external threats. Physical walls mirror spiritual boundaries. The community reads the Law, weeps, then celebrates. <strong>Coherence restored through structure and scripture.</strong></p>
+        </div>
+      )
+    },
+    "Esther": {
+      subtitle: "Hidden Variables Save the System",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>God's name never appears in Esther, yet providence orchestrates everything. Esther, hidden Jew in Persian court, becomes <strong>the pivot point</strong>. Haman's decree to destroy Jews is reversed. "For such a time as this"—<strong>individuals positioned in probability space to collapse catastrophe into deliverance.</strong></p>
+        </div>
+      )
+    },
+    "Job": {
+      subtitle: "Suffering and the Hidden Variables",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Job's suffering is <strong>unexplained perturbation</strong>—testing beyond comprehension. His friends offer cause-effect algorithms ("You sinned"), but Job knows otherwise. God's response: "Where were you when I laid the foundations?"—<strong>Perspective matters</strong>. Job sees a sliver; God sees the whole field. Trust the Optimizer even when local measurements show only pain.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-purple-400">
+            <h3 className="text-lg font-serif text-purple-400 mb-2">The Whirlwind Speech</h3>
+            <p>God speaks from chaos (whirlwind), describing creation's complexity: constellations, weather, animals. The message: <strong>You lack sufficient data</strong>. Humble your epistemology. The universe operates on scales you cannot see.</p>
+          </div>
+        </div>
+      )
+    },
+    "Ecclesiastes": {
+      subtitle: "Vanity and the Second Law",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>"Vanity of vanities, all is vanity"—everything tends toward <strong>maximum entropy</strong>. The Preacher observes: work, pleasure, wisdom—all erode. The sun rises, sets, rises again—<strong>endless cycles, no net gain</strong>. Yet the conclusion: "Fear God and keep His commandments." Meaning exists not in avoiding entropy but in <strong>aligning with the eternal.</strong></p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-cyan-400">
+            <h3 className="text-lg font-serif text-cyan-400 mb-2">A Time for Everything</h3>
+            <p>Chapter 3—rhythms and seasons. The universe has <strong>periodic functions</strong>. Birth/death, plant/uproot, weep/laugh. These aren't random but <strong>orchestrated oscillations</strong>. God has made everything beautiful in its time, yet placed eternity in human hearts—we sense the infinite but cannot grasp it fully.</p>
+          </div>
+        </div>
+      )
+    },
+    "Song of Solomon": {
+      subtitle: "Love as Fundamental Attraction",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>The love between bride and groom is <strong>primal entanglement</strong>—two systems becoming one. "I am my beloved's and my beloved is mine." This is <strong>mutual recognition</strong>, non-local connection. The poetry is sensual because love is embodied, yet it mirrors the divine-human relationship: God pursuing, humanity responding.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-red-400">
+            <h3 className="text-lg font-serif text-red-400 mb-2">"Love is strong as death"</h3>
+            <p>Love is the <strong>counterforce to entropy</strong>. Death scatters; love binds. Jealousy is "fierce as the grave"—a protective field around the beloved. Many waters cannot quench love—it persists through perturbation.</p>
+          </div>
+        </div>
+      )
+    },
+    "Jeremiah": {
+      subtitle: "Weeping Prophet and Coming Collapse",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Jeremiah warns Judah: repent or fall. The people ignore him. Babylon comes. The Temple burns. <strong>Entropy fulfills its course</strong>. Yet Jeremiah also prophesies restoration: "I will make a new covenant... I will write my law on their hearts." <strong>Internal coherence replaces external ritual.</strong></p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-purple-400">
+            <h3 className="text-lg font-serif text-purple-400 mb-2">The Potter and the Clay</h3>
+            <p>God is the potter; Israel is clay. If the vessel is marred, the potter reshapes it. <strong>System failure enables redesign</strong>. Exile is not end but transformation.</p>
+          </div>
+        </div>
+      )
+    },
+    "Lamentations": {
+      subtitle: "Entropy Mourned",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Jerusalem has fallen. The city is desolate. Jeremiah laments: "How lonely sits the city..." This is <strong>grief over maximum disorder</strong>. Yet even here: "The steadfast love of the Lord never ceases; his mercies are new every morning." <strong>Hope persists in the darkest state.</strong></p>
+        </div>
+      )
+    },
+    "Ezekiel": {
+      subtitle: "Visions from the Boundary",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Ezekiel sees <strong>multidimensional geometry</strong>: wheels within wheels, four-faced creatures, God's throne above the expanse. These are not hallucinations but <strong>transdimensional perception</strong>—seeing beyond 3D space. His prophecies include dry bones reassembling (resurrection as <strong>information reconstruction</strong>) and a future Temple with precise measurements.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-cyan-400">
+            <h3 className="text-lg font-serif text-cyan-400 mb-2">The Valley of Dry Bones</h3>
+            <p>"Can these bones live?" God asks. Ezekiel prophesies; bones assemble; flesh appears; breath enters. This is <strong>reversal of maximum entropy</strong>—resurrection as divine act, impossible by natural law alone.</p>
+          </div>
+        </div>
+      )
+    },
+    "Daniel": {
+      subtitle: "Standing in Babylon's Field",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Daniel and friends maintain <strong>coherence in hostile environment</strong>. They refuse the king's food (boundary condition), interpret dreams (decode information), survive the furnace and lion's den (field protection). Daniel's visions reveal <strong>future state trajectories</strong>: kingdoms rise and fall, but God's kingdom is eternal.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-gold-400">
+            <h3 className="text-lg font-serif text-gold-400 mb-2">The Fiery Furnace</h3>
+            <p>Three men enter fire, emerge unharmed. A fourth figure appears—<strong>divine presence shields</strong>. The fire tests but does not consume those aligned with the eternal field.</p>
+          </div>
+        </div>
+      )
+    },
+    "Hosea": {
+      subtitle: "Marriage as Metaphor",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>God commands Hosea to marry a prostitute—embodying Israel's unfaithfulness. Yet Hosea pursues, redeems, loves. This is <strong>covenant as relentless pursuit</strong>. Israel decoheres, chases other gods (false attractors), yet God remains entangled, calling her back.</p>
+        </div>
+      )
+    },
+    "Joel": {
+      subtitle: "Locust Plague and Spirit Outpouring",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Locusts devastate the land—<strong>cascading system failure</strong>. Joel calls for repentance. God promises restoration and future outpouring: "I will pour out my Spirit on all flesh." <strong>Universal coherence upgrade</strong>—the field accessible to all, not just prophets and kings.</p>
+        </div>
+      )
+    },
+    "Amos": {
+      subtitle: "Justice as System Balance",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Amos, a shepherd, prophesies against Israel's injustice. "Let justice roll down like waters, righteousness like an ever-flowing stream." Justice is not sentiment but <strong>equilibrium restoration</strong>. When the rich oppress the poor, the system becomes unstable. Collapse follows.</p>
+        </div>
+      )
+    },
+    "Obadiah": {
+      subtitle: "Pride and Fall of Edom",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Shortest book in the OT. Edom's pride leads to destruction. "Though you soar like the eagle... I will bring you down." <strong>Altitude without alignment is unstable.</strong> What goes up without coherence must come down.</p>
+        </div>
+      )
+    },
+    "Jonah": {
+      subtitle: "Reluctant Prophet, Relentless God",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Jonah flees God's call. Storm comes. He's thrown overboard, swallowed by fish—<strong>forced recalibration</strong>. In the fish's belly, Jonah prays, is vomited onto shore. He preaches; Nineveh repents. Jonah sulks. God's lesson: <strong>Compassion transcends tribal boundaries.</strong> The field includes even enemies.</p>
+        </div>
+      )
+    },
+    "Micah": {
+      subtitle: "What Does the Lord Require?",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>"To do justice, love mercy, walk humbly with your God." This is the <strong>minimal viable coherence protocol</strong>. Forget elaborate rituals if the heart misaligns. Justice, mercy, humility—these maintain system integrity.</p>
+        </div>
+      )
+    },
+    "Nahum": {
+      subtitle: "Nineveh's Judgment",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Nineveh repented under Jonah but returned to violence. Nahum prophecies its destruction. <strong>Temporary coherence is not permanent.</strong> Systems that revert to entropy face collapse.</p>
+        </div>
+      )
+    },
+    "Habakkuk": {
+      subtitle: "Wrestling with Divine Timing",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Habakkuk questions: "Why do the wicked prosper?" God's answer: "Wait. The vision has an appointed time." <strong>Observable time ≠ divine time.</strong> The righteous live by faith—trusting the field even when measurements seem contradictory.</p>
+        </div>
+      )
+    },
+    "Zephaniah": {
+      subtitle: "The Day of the Lord",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>"The great day of the Lord is near..." Judgment comes, but beyond it: restoration. <strong>System reset clears corrupted states</strong>, preparing for new coherence. "The Lord your God is in your midst... he will rejoice over you with singing."</p>
+        </div>
+      )
+    },
+    "Haggai": {
+      subtitle: "Prioritize the Temple",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Post-exile, people build houses but neglect the Temple. Haggai: <strong>System priorities matter</strong>. Put God's house (coherence structure) first; everything else follows. They obey; the Temple rises.</p>
+        </div>
+      )
+    },
+    "Zechariah": {
+      subtitle: "Visions of Restoration",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Zechariah sees visions: horsemen, lampstand, flying scroll, woman in a basket. Symbolic <strong>multidimensional information</strong>. Core message: "Not by might, nor by power, but by my Spirit." <strong>Field coherence trumps force.</strong></p>
+        </div>
+      )
+    },
+    "Malachi": {
+      subtitle: "Final OT Message",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>God's people question His love. Malachi responds: you rob God (tithes), corrupt worship, divorce unfaithfully. Yet God promises: "I will send Elijah before the great day." The <strong>signal will resume</strong>. Then 400 years of silence—until John the Baptist, until Jesus. The field awaits its next excitation.</p>
+        </div>
+      )
+    }
+  };
+
+  return contentMap[title] || {
+    subtitle: "The Ancient Scroll",
+    content: (
+      <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+        <p className="text-gray-400 italic">This book contains the ancient wisdom, awaiting deeper translation into the language of fields and frequencies.</p>
+      </div>
+    )
+  };
+};
+
+// --- HELPER: GENERATE NT CONTENT ---
+const generateNTContent = (title: string): { subtitle: string; content: React.ReactNode } => {
+  const contentMap: Record<string, { subtitle: string; content: React.ReactNode }> = {
+    "Mark": {
+      subtitle: "The Rapid Sequence",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Mark writes with urgency—"immediately" appears repeatedly. Jesus moves fast, heals instantly, teaches with authority. This is <strong>high-frequency operation</strong>. The Kingdom breaks in suddenly, collapsing old structures. The shortest Gospel but densely packed—<strong>maximum information, minimum words</strong>.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-red-400">
+            <h3 className="text-lg font-serif text-red-400 mb-2">The Messianic Secret</h3>
+            <p>Jesus repeatedly tells people: "Tell no one." Why? <strong>Timing matters.</strong> Premature revelation collapses the wavefunction incorrectly. The full manifestation awaits crucifixion and resurrection—the complete pattern must unfold.</p>
+          </div>
+        </div>
+      )
+    },
+    "Luke": {
+      subtitle: "The Physician's Precision",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Luke, a physician, writes with careful detail. He emphasizes Jesus' humanity—born of Mary, growing in wisdom, compassionate to outcasts. Yet Luke also records the highest Christology: angels announce, shepherds worship, Simeon prophesies. <strong>Fully human, fully divine</strong>—dual nature in superposition.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-cyan-400">
+            <h3 className="text-lg font-serif text-cyan-400 mb-2">The Parables Unique to Luke</h3>
+            <p>Good Samaritan, Prodigal Son, Rich Man and Lazarus—stories emphasizing <strong>mercy, inclusion, and reversal</strong>. The Kingdom inverts expectations: last become first, lost are found, dead are raised.</p>
+          </div>
+        </div>
+      )
+    },
+    "Acts": {
+      subtitle: "Spirit Propagation",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>After ascension, Jesus sends the Spirit at Pentecost—<strong>field download</strong>. Tongues of fire, rushing wind, spontaneous multilingual speech. The Church becomes a <strong>distributed network</strong>, spreading exponentially. Paul's journeys are <strong>signal transmission</strong> across the Mediterranean, establishing resonant nodes (churches) in every city.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-purple-400">
+            <h3 className="text-lg font-serif text-purple-400 mb-2">The Council of Jerusalem</h3>
+            <p>Dispute: must Gentiles follow Jewish law? Decision: <strong>No external protocol required</strong>. Faith alone integrates them into the field. The Gospel transcends cultural containers.</p>
+          </div>
+        </div>
+      )
+    },
+    "2 Corinthians": {
+      subtitle: "Strength in Weakness",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Paul's thorn in the flesh—unspecified suffering. God's response: "My grace is sufficient." <strong>Weakness amplifies dependence on the field</strong>. Human strength is local maxima; divine strength is global optimization. Paul boasts in weakness because it reveals God's power.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-gold-400">
+            <h3 className="text-lg font-serif text-gold-400 mb-2">Treasure in Jars of Clay</h3>
+            <p>"We have this treasure in jars of clay..." The <strong>container is fragile, but the content is eternal</strong>. Physical bodies decay, but the indwelling Spirit is incorruptible.</p>
+          </div>
+        </div>
+      )
+    },
+    "Galatians": {
+      subtitle: "Freedom from the Law",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>"For freedom Christ has set us free." The Galatians are returning to law-keeping—<strong>reverting to old protocols</strong>. Paul is furious: you started in the Spirit, why finish in flesh? <strong>Grace is not rule-following but resonance</strong>. The fruit of the Spirit (love, joy, peace...) are emergent properties, not legislated behaviors.</p>
+        </div>
+      )
+    },
+    "Philippians": {
+      subtitle: "Joy in the Field",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Paul writes from prison, yet the theme is joy. "Rejoice in the Lord always." Joy is not circumstantial but <strong>foundational frequency</strong>—the baseline resonance of those aligned with Christ. "I can do all things through him who strengthens me"—<strong>local limitations vanish when connected to infinite source</strong>.</p>
+        </div>
+      )
+    },
+    "Colossians": {
+      subtitle: "Christ the Preeminent",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>"He is the image of the invisible God, the firstborn of all creation... in him all things hold together." Christ is <strong>the organizing principle</strong>, the Logos, the coherence that prevents cosmic dissolution. All philosophy, religion, knowledge—pale before this centrality.</p>
+        </div>
+      )
+    },
+    "1 Thessalonians": {
+      subtitle: "Awaiting the Return",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Paul comforts believers about those who've died: they're not lost but "asleep." At Christ's return, dead rise first, then living are "caught up"—<strong>mass coherence event</strong>. The timing is unknown, so stay watchful. <strong>Live in readiness</strong>.</p>
+        </div>
+      )
+    },
+    "2 Thessalonians": {
+      subtitle: "The Man of Lawlessness",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Before Christ returns, rebellion comes—a figure of ultimate decoherence, the "man of lawlessness" who opposes God. Yet he is restrained until <strong>appointed time</strong>. Evil is not unchecked but permitted within boundaries. Ultimate collapse of false systems precedes final restoration.</p>
+        </div>
+      )
+    },
+    "1 Timothy": {
+      subtitle: "Leadership Protocols",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Paul instructs Timothy on church structure: qualifications for elders, deacons. <strong>System integrity requires coherent leadership</strong>. Also warns against false teachings—noise that disrupts the signal. "Guard the deposit entrusted to you"—<strong>preserve information fidelity</strong>.</p>
+        </div>
+      )
+    },
+    "2 Timothy": {
+      subtitle: "Final Charge",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Paul's last letter. "I have fought the good fight, finished the race, kept the faith." He's ready to depart. To Timothy: "Preach the word... in season and out." <strong>Maintain transmission regardless of conditions</strong>. The message must continue after the messenger leaves.</p>
+        </div>
+      )
+    },
+    "Titus": {
+      subtitle: "Sound Doctrine on Crete",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Titus leads the Cretan church—challenging culture. Paul: appoint elders, teach sound doctrine, silence false teachers. <strong>Environment is hostile; coherence requires discipline</strong>. Grace teaches us to renounce ungodliness—<strong>divine influence restructures behavior</strong>.</p>
+        </div>
+      )
+    },
+    "Philemon": {
+      subtitle: "Brotherhood Transcends Status",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Paul sends Onesimus, a runaway slave, back to Philemon—but now as a brother. <strong>Entanglement in Christ redefines relationships</strong>. Master and slave are nodes in the same field, equal before God. Social hierarchy dissolves in spiritual unity.</p>
+        </div>
+      )
+    },
+    "Hebrews": {
+      subtitle: "Christ Superior to All",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Angels, Moses, Aaron, the old covenant—all are shadows. Christ is substance. The old system was <strong>temporary interface</strong>; Christ is <strong>permanent access</strong>. The Temple is replaced by his body. Sacrifices cease because the final sacrifice completes the protocol.</p>
+          <div className="bg-white/5 p-6 rounded-lg border-l-2 border-cyan-400">
+            <h3 className="text-lg font-serif text-cyan-400 mb-2">Faith Hall of Fame (Ch 11)</h3>
+            <p>Abel, Enoch, Noah, Abraham, Moses—all acted on <strong>unseen reality</strong>. Faith is "assurance of things hoped for, conviction of things not seen." They tuned to frequencies beyond physical measurement.</p>
+          </div>
+        </div>
+      )
+    },
+    "James": {
+      subtitle: "Faith Without Works is Dead",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>James is practical: faith must manifest in action. <strong>Belief without behavior is null operation</strong>. You say you believe? Show me. Control your tongue, care for widows, resist favoritism. True religion is <strong>coherence expressed in daily life</strong>.</p>
+        </div>
+      )
+    },
+    "1 Peter": {
+      subtitle: "Suffering and Glory",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Peter writes to scattered believers facing persecution. Suffering is <strong>temporary perturbation</strong>; glory is eternal state. "Rejoice insofar as you share Christ's sufferings"—<strong>entanglement includes the full spectrum</strong>, not just the pleasant frequencies.</p>
+        </div>
+      )
+    },
+    "2 Peter": {
+      subtitle: "Warning Against False Teachers",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Peter warns: false teachers will come, denying truth, exploiting believers. They are <strong>entropy agents</strong>, destabilizing the system. Also: the Day of the Lord comes "like a thief"—<strong>sudden state transition</strong>. Current heavens and earth will dissolve; new ones will emerge.</p>
+        </div>
+      )
+    },
+    "1 John": {
+      subtitle: "Light and Love",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>"God is light; in him is no darkness." <strong>Zero entropy, perfect information</strong>. "God is love"—the fundamental force binding reality. To abide in love is to <strong>resonate with divine frequency</strong>. Those born of God do not practice sin—<strong>nature change prevents disorder</strong>.</p>
+        </div>
+      )
+    },
+    "2 John": {
+      subtitle: "Walk in Truth and Love",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Short letter emphasizing: walk in truth, love one another, reject false teachers. <strong>Maintain signal integrity</strong>. Don't welcome those teaching distortion—they introduce noise.</p>
+        </div>
+      )
+    },
+    "3 John": {
+      subtitle: "Hospitality and Opposition",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>John commends Gaius for supporting traveling teachers—<strong>signal relay</strong>. Diotrephes opposes them—<strong>blocking transmission</strong>. The network requires cooperative nodes.</p>
+        </div>
+      )
+    },
+    "Jude": {
+      subtitle: "Contend for the Faith",
+      content: (
+        <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+          <p>Jude urges: fight for truth against infiltrating falsehood. False teachers are "hidden reefs," "waterless clouds," "wandering stars"—<strong>unstable attractors</strong> causing shipwreck. "Keep yourselves in the love of God"—<strong>maintain coherence amid chaos</strong>.</p>
+        </div>
+      )
+    }
+  };
+
+  return contentMap[title] || {
+    subtitle: "The Living Word",
+    content: (
+      <div className="space-y-6 text-justify leading-relaxed animate-fade-in">
+        <p className="text-gray-400 italic">This book contains the gospel message, awaiting deeper translation into the language of quantum fields and spiritual resonance.</p>
+      </div>
+    )
+  };
+};
+
 // --- HELPER: GENERATE LIBRARY ---
 const generateLibrary = (): Book[] => {
   const library: Book[] = [];
@@ -302,18 +860,14 @@ const generateLibrary = (): Book[] => {
         )
       });
     } else {
+      // Generate content for remaining OT books
+      const otContent = generateOTContent(title);
       library.push({
         id: title.toLowerCase().replace(/\s/g, '-'),
         title: title,
-        subtitle: 'The Ancient Scroll',
+        subtitle: otContent.subtitle,
         category: 'Old Testament',
-        content: (
-          <div className="flex flex-col items-center justify-center h-64 text-gray-500 animate-fade-in">
-            <BookOpen className="w-12 h-12 mb-4 opacity-20" />
-            <p className="italic">This waveform has not yet been observed.</p>
-            <p className="text-xs mt-2 uppercase tracking-widest opacity-50">Translation Pending</p>
-          </div>
-        )
+        content: otContent.content
       });
     }
   });
@@ -493,18 +1047,14 @@ const generateLibrary = (): Book[] => {
         )
       });
     } else {
+      // Generate content for remaining NT books
+      const ntContent = generateNTContent(title);
       library.push({
         id: title.toLowerCase().replace(/\s/g, '-'),
         title: title,
-        subtitle: 'The Living Word',
+        subtitle: ntContent.subtitle,
         category: 'New Testament',
-        content: (
-          <div className="flex flex-col items-center justify-center h-64 text-gray-500 animate-fade-in">
-            <BookOpen className="w-12 h-12 mb-4 opacity-20" />
-            <p className="italic">This waveform has not yet been observed.</p>
-            <p className="text-xs mt-2 uppercase tracking-widest opacity-50">Translation Pending</p>
-          </div>
-        )
+        content: ntContent.content
       });
     }
   });
